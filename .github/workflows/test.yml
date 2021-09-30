@@ -1,0 +1,39 @@
+name: test
+
+on: [push]
+
+env:
+  RUBY_VERSION: 3.0.0
+  RAILS_ENV: test
+  TZ: '/usr/share/zoneinfo/Asia/Tokyo'
+
+jobs:
+  rspec:
+    name: rspec
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+          MYSQL_ROOT_PASSWORD: ''
+        ports:
+          - 3306:3306
+        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+
+      - name: Database Setup
+        run: |
+          mv config/database.ci.yml config/database.yml
+          bin/rails db:create
+          bin/rails db:setup
