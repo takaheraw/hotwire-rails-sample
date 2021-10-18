@@ -50,8 +50,8 @@ jobs:
       - run: which npm
       - run: |
           curl -sSL https://www.npmjs.com/install.sh -o install.sh && chmod +x install.sh && sudo npm_install=6.13.0 ./install.sh
-          echo node -v
-          echo npm -v
+          node -v
+          npm -v
       - run: which node
       - run: which npm
   
