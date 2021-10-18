@@ -46,7 +46,14 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       
-      - run: curl -sSL https://www.npmjs.com/install.sh -o install.sh && chmod +x install.sh && sudo npm_install=6.13.0 ./install.sh
+      - run: which node
+      - run: which npm
+      - run: |
+          curl -sSL https://www.npmjs.com/install.sh -o install.sh && chmod +x install.sh && sudo npm_install=6.13.0 ./install.sh
+          echo node -v
+          echo npm -v
+      - run: which node
+      - run: which npm
   
       - run: ruby -v
       - run: bundle -v
