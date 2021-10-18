@@ -36,9 +36,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gems-
 
-      - name: Install Ruby dependencies
+      - name: Install ruby dependencies
         run: |
-          gem install bundler:${{ env.RUBY_VERSION }}
+          gem install bundler:${{ env.BUNDLER_VERSION }}
           bundle config set --local path vendor/bundle
           bundle install --jobs 4 --retry 3
   
