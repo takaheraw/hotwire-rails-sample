@@ -45,6 +45,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
+      
+      - run: curl -sSL https://www.npmjs.com/install.sh -o install.sh && chmod +x install.sh && sudo npm_install=6.13.0 ./install.sh
   
       - run: ruby -v
       - run: bundle -v
